@@ -105,7 +105,10 @@ def get_all_users():
     user_list = [{
         "id": user.id,
         "email": user.email,
-        "is_active": user.is_active
+        "address": user.address,  # Incluir dirección en la respuesta
+        "phone": user.phone,      # Incluir teléfono en la respuesta
+        "is_active": user.is_active,
+        "is_admin": user.is_admin  # Incluir is_admin en la respuesta
     } for user in users]
     print(f"Users retrieved: {user_list}")
     return jsonify(user_list), 200

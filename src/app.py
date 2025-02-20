@@ -29,7 +29,7 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # Inicializar JWTManager con la aplicación Flask
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Cambia esto por una clave secreta más segura
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Cambiar esto por una clave secreta más segura
 jwt = JWTManager(app)
 
 # add the admin
