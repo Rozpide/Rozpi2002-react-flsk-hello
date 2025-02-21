@@ -156,7 +156,8 @@ def admin_update_user(user_id):
         user.address = body['address']  # Actualizar dirección
     if 'phone' in body:
         user.phone = body['phone']      # Actualizar teléfono
-    
+    if 'nationality' in body:
+        user.nationality = body['nationality']  # Actualizar nacionalidad   
     db.session.commit()
     
     return jsonify({"message": "User information updated successfully"}), 200
@@ -176,3 +177,21 @@ def admin_get_user(user_id):
         raise APIException("User not found", status_code=404)
 
     return jsonify(user.serialize()), 200
+
+# src/api/routes.py
+
+@api.route('/users/nationality/<string:nationality>', methods=['GET'])
+@jwt_required()
+def get_users_by_nationality(nationality):
+    users = User.query.filter_by(nationality=nationality).all()
+    user_list = [{
+        "id": user.id,
+        "email": user.email,
+        "address": user.address,
+        "phone": user.phone,
+        "nationality": user.nationality,
+        "is_active": user.is_active,
+        "is_admin": user.is_admin
+    } for user in users]
+    return jsonify(user_list), 200
+
